@@ -1,0 +1,30 @@
+name: Replay messages from SNS DLQ
+on:
+  workflow_dispatch:
+    inputs:
+      dlqQueue:
+        description: "Pass the queue you want to move messages from"
+        required: true
+      destinationQueue:
+        description: "Pass the queue you want to move messages to"
+        required: true
+
+jobs:
+  replay-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v2
+        with:
+          repository: esvm/tcc/actions
+          ref: main
+          token: ${{ secrets.GIT_HUB_TOKEN }}
+          path: .github/actions/esvm
+
+      - name: Replay messages in DLQ
+        uses: ./.github/actions/esvm/replay_dlq_messages
+        with:
+          source_queue: ${{ github.event.inputs.dlqQueue }}
+          destination_queue: ${{ github.event.inputs.destinationQueue }}
+          aws_access_key_id: ${{ secrets.REPLAY_MESSAGES_AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.REPLAY_MESSAGES_AWS_SECRET_ACCESS_KEY }}
