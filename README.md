@@ -1,2 +1,2 @@
-# tcc
-Repository to develop graduation work
+# Description
+Repository to develop my graduation work 

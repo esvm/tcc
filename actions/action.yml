@@ -1,0 +1,35 @@
+name: Replay messages from SNS DLQ
+description: Move messages from Dead Letter Queue to the main queue
+inputs:
+  source_queue:
+    description: "The queue you want to move messages from."
+    required: true
+  destination_queue:
+    description: "The queue you want to move messages to."
+    required: true
+  aws_access_key_id:
+    description: "The AWS access key id from the user with access to the queues"
+    required: true
+  aws_secret_access_key:
+    description: "The AWS secret access key from the user with access to the queues"
+    required: true
+  aws_region:
+    description: "The region of the user account"
+    default: us-east-1
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Message Mover
+      shell: bash
+      env:
+        AWS_ACCESS_KEY_ID: ${{ inputs.aws_access_key_id }}
+        AWS_SECRET_ACCESS_KEY: ${{ inputs.aws_secret_access_key }}
+        AWS_REGION: ${{ inputs.aws_region }}
+        SOURCE_QUEUE: ${{ inputs.source_queue }}
+        DESTINATION_QUEUE: ${{ inputs.destination_queue }}
+      run: |
+        git clone https://github.com/esvm/sqsmover.git && echo "cloned"
+        sleep 2
+        cd ./sqsmover/
+        GO111MODULE=on go run -mod vendor ./main.go --source ${SOURCE_QUEUE} --destination ${DESTINATION_QUEUE}
