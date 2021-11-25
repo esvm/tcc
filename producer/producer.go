@@ -12,8 +12,8 @@ import (
 
 func main() {
 	queueUrl 	   := "https://sqs.us-east-1.amazonaws.com/576308049910/tcc-esvm-ufpe.fifo"
-	accessKeyId    := "AKIAYMLVC673FOALQBUM"
-	accessSecret   := "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"
+	accessKeyId    := ""
+	accessSecret   := ""
 	region 		   := "us-east-1"
 	messageGroupId := "test"
 

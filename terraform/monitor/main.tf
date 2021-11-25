@@ -7,8 +7,8 @@ terraform {
 }
 
 provider "datadog" {
-  api_key = "41428292bdf6a0bbfebc2b0213629546"
-  app_key = "ced0d4c22be854fb8284b1031b1e1561f37fb05c"
+  api_key = "datadog_api_key"
+  app_key = "datadog_app_key"
 }
 
 resource "datadog_monitor" "alert_sqs_qty_msgs" {

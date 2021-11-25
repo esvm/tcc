@@ -26,5 +26,5 @@ jobs:
         with:
           source_queue: ${{ github.event.inputs.dlqQueue }}
           destination_queue: ${{ github.event.inputs.destinationQueue }}
-          aws_access_key_id: AKIAYMLVC673FOALQBUM
-          aws_secret_access_key: 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
+          aws_access_key_id: acess_key
+          aws_secret_access_key: secret_key

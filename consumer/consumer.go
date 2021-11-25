@@ -11,10 +11,10 @@ import (
 
 func main() {
 	queueUrl 	   		:= "https://sqs.us-east-1.amazonaws.com/576308049910/tcc-esvm-ufpe.fifo"
-	accessKeyId    		:= "AKIAYMLVC673FOALQBUM"
-	accessSecret   		:= "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"
+	accessKeyId    		:= ""
+	accessSecret   		:= ""
 	region 		   		:= "us-east-1"
-	maxNumberOfMessages := int64(1)
+	maxNumberOfMessages := int64(10)
 
 	sess, err := session.NewSessionWithOptions(session.Options{
 		Config: aws.Config{
@@ -39,10 +39,13 @@ func main() {
 	}
 
 	if len(output.Messages) > 0 {
-		svc.DeleteMessage(&sqs.DeleteMessageInput{
-			QueueUrl: &queueUrl,
-			ReceiptHandle: output.Messages[0].ReceiptHandle,
-		})
-		fmt.Println(output.String())
+		for _, message := range output.Messages {
+			svc.DeleteMessage(&sqs.DeleteMessageInput{
+				QueueUrl: &queueUrl,
+				ReceiptHandle: message.ReceiptHandle,
+			})
+			fmt.Println(message.String())
+		}
+
 	}
 }
