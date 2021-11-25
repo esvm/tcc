@@ -16,13 +16,13 @@ jobs:
       - name: Checkout GitHub Action Repo
         uses: actions/checkout@v2
         with:
-          repository: esvm/tcc/actions
+          repository: esvm/tcc
           ref: main
-          token: ${{ secrets.GIT_HUB_TOKEN }}
-          path: .github/actions/esvm
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: .github/actions/esvm/tcc
 
       - name: Replay messages in DLQ
-        uses: ./.github/actions/esvm/tcc/replay_dlq_messages
+        uses: ./.github/actions/esvm/tcc/actions
         with:
           source_queue: ${{ github.event.inputs.dlqQueue }}
           destination_queue: ${{ github.event.inputs.destinationQueue }}
