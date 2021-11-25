@@ -22,9 +22,9 @@ jobs:
           path: .github/actions/esvm
 
       - name: Replay messages in DLQ
-        uses: ./.github/actions/esvm/replay_dlq_messages
+        uses: ./.github/actions/esvm/tcc/replay_dlq_messages
         with:
           source_queue: ${{ github.event.inputs.dlqQueue }}
           destination_queue: ${{ github.event.inputs.destinationQueue }}
-          aws_access_key_id: ${{ secrets.REPLAY_MESSAGES_AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.REPLAY_MESSAGES_AWS_SECRET_ACCESS_KEY }}
+          aws_access_key_id: AKIAYMLVC673FOALQBUM
+          aws_secret_access_key: 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

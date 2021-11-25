@@ -38,5 +38,11 @@ func main() {
 		return
 	}
 
-	fmt.Println(output.String())
+	if len(output.Messages) > 0 {
+		svc.DeleteMessage(&sqs.DeleteMessageInput{
+			QueueUrl: &queueUrl,
+			ReceiptHandle: output.Messages[0].ReceiptHandle,
+		})
+		fmt.Println(output.String())
+	}
 }
